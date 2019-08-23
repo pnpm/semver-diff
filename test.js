@@ -2,44 +2,42 @@ const test = require('tape')
 const semverDiff = require('.')
 
 test('semverDiff', t => {
-    t.deepEqual(semverDiff('1.0.0', '2.0.0'), { change: 'breaking', version: {samePart: [], diffPart: ['2', '0', '0'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('1.1.0', '1.2.0'), { change: 'feature', version: {samePart: ['1'], diffPart: ['2', '0'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('1.0.0', '1.0.1'), { change: 'fix', version: {samePart: ['1', '0'], diffPart: ['1'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('1.0.0', '1.0.0'), { change: null, version: {samePart: ['1', '0', '0'], diffPart: [] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('0.0.1', '0.0.2'), { change: 'unknown', version: {samePart: ['0', '0'], diffPart: ['2'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('0.1.0', '0.0.1'), { change: 'unknown', version: {samePart: ['0'], diffPart: ['0', '1'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('0.1.0', '0.2.0'), { change: 'unknown', version: {samePart: ['0'], diffPart: ['2', '0'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('0.1.0', '0.1.2'), { change: 'unknown', version: {samePart: ['0', '1'], diffPart: ['2'] }, prerelease: {samePart: [], diffPart: []}})
-    t.deepEqual(semverDiff('0.1.0', '1.0.0'), { change: 'unknown', version: {samePart: [], diffPart: ['1', '0', '0'] }, prerelease: {samePart: [], diffPart: []}})
+    t.deepEqual(semverDiff('1.0.0', '2.0.0'), { change: 'breaking', diff: [[], ['2', '0', '0']] })
+    t.deepEqual(semverDiff('1.1.0', '1.2.0'), { change: 'feature', diff: [['1'], ['2', '0']]})
+    t.deepEqual(semverDiff('1.0.0', '1.0.1'), { change: 'fix', diff: [['1', '0'], ['1']]})
+    t.deepEqual(semverDiff('1.0.0', '1.0.0'), { change: null, diff: [['1', '0', '0'], []]})
+    t.deepEqual(semverDiff('0.0.1', '0.0.2'), { change: 'unknown', diff: [['0', '0'], ['2']]})
+    t.deepEqual(semverDiff('0.1.0', '0.0.1'), { change: 'unknown', diff: [['0'], ['0', '1']]})
+    t.deepEqual(semverDiff('0.1.0', '0.2.0'), { change: 'unknown', diff: [['0'], ['2', '0']]})
+    t.deepEqual(semverDiff('0.1.0', '0.1.2'), { change: 'unknown', diff: [['0', '1'], ['2']]})
+    t.deepEqual(semverDiff('0.1.0', '1.0.0'), { change: 'unknown', diff: [[], ['1', '0', '0']]})
     t.deepEqual(semverDiff('1.0.0', '1.0.0-0'), {
         change: 'unknown',
-        version: {samePart: ['1', '0', '0'], diffPart: [] },
-        prerelease: {samePart: [], diffPart: ['0']}
+        diff: [['1', '0', '0'], ['0']]
     })
     t.deepEqual(semverDiff('1.0.0', '1.0.0-rc.1'), {
         change: 'unknown',
-        version: { samePart: ['1', '0', '0'], diffPart: [] },
-        prerelease: {samePart: [], diffPart: ['rc', '1']}
+        diff: [['1', '0', '0'], ['rc', '1']]
     })
     t.deepEqual(semverDiff('1.0.0-rc.0', '1.0.0-rc.1'), {
         change: 'unknown',
-        version: { samePart: ['1', '0', '0'], diffPart: [] },
-        prerelease: {samePart: ['rc'], diffPart: ['1']}
+        diff: [['1', '0', '0', 'rc'], ['1']]
     })
     t.deepEqual(semverDiff('1.0.0-0', '1.0.0-rc.1'), {
         change: 'unknown',
-        version: { samePart: ['1', '0', '0'], diffPart: [] },
-        prerelease: {samePart: [], diffPart: ['rc', '1']}
+        diff: [['1', '0', '0'], ['rc', '1']]
     })
     t.deepEqual(semverDiff('1.0.0-rc.1', '1.0.0-0'), {
         change: 'unknown',
-        version: { samePart: ['1', '0', '0'], diffPart: [] },
-        prerelease: {samePart: [], diffPart: ['0']}
+        diff: [['1', '0', '0'], ['0']]
     })
     t.deepEqual(semverDiff('1.0.0-beta.0', '1.0.0-rc.1'), {
         change: 'unknown',
-        version: { samePart: ['1', '0', '0'], diffPart: [] },
-        prerelease: {samePart: [], diffPart: ['rc', '1']}
+        diff: [['1', '0', '0'], ['rc', '1']]
+    })
+    t.deepEqual(semverDiff('1.0.0-beta.0', '1.0.1-beta.1'), {
+        change: 'unknown',
+        diff: [['1', '0'], ['1', 'beta', '1']]
     })
     t.end()
 })
