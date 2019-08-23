@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 8
+  - 10
+  - 12
+sudo: false
+before_install:
+  - curl -L https://unpkg.com/@pnpm/self-installer | PNPM_VERSION=next node
+install:
+  - pnpm install
+script:
+  - pnpm test
+notifications:
+email: false
