@@ -1,6 +1,11 @@
-const CHANGE_TYPE = ['breaking', 'feature', 'fix']
+const CHANGE_TYPE = ['breaking', 'feature', 'fix'] as const
 
-export default function semverDiff (version1: string, version2: string) {
+export type VERSION_CHANGE = typeof CHANGE_TYPE[number] | 'unknown'
+
+export default function semverDiff (
+  version1: string,
+  version2: string,
+): { change: VERSION_CHANGE | null, diff: [string[], string[]]} {
   if (version1 === version2) {
     return {
       change: null,
@@ -10,7 +15,7 @@ export default function semverDiff (version1: string, version2: string) {
   const version1Tuples = parseVersion(version1)
   const version2Tuples = parseVersion(version2)
   const same = []
-  let change = 'unknown'
+  let change: VERSION_CHANGE = 'unknown'
   const maxTuples = Math.max(version1Tuples.length, version2Tuples.length)
   let unstable = version1Tuples[0] === '0' || version2Tuples[0] === '0' || maxTuples > 3
   for (let i = 0; i < maxTuples; i++) {
