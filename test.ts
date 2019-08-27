@@ -39,5 +39,9 @@ test('semverDiff', t => {
     change: 'unknown',
     diff: [['1', '0'], ['1', 'beta', '1']]
   })
+  t.deepEqual(semverDiff('1.0.0-a-b.0', '1.0.0-a-c.0'), {
+    change: 'unknown',
+    diff: [['1', '0', '0'], ['a-c', '0']]
+  })
   t.end()
 })

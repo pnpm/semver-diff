@@ -38,7 +38,15 @@ export default function semverDiff (
 }
 
 function parseVersion (version: string) {
-  const [normalVersion, prereleaseVersion] = version.split('-')
+  const dashIndex = version.indexOf('-')
+  let normalVersion
+  let prereleaseVersion
+  if (dashIndex === -1) {
+    normalVersion = version
+  } else {
+    normalVersion = version.substr(0, dashIndex)
+    prereleaseVersion = version.substr(dashIndex + 1)
+  }
   return [
     ...normalVersion.split('.'),
     ...(typeof prereleaseVersion !== 'undefined' ? prereleaseVersion.split('.') : [])
