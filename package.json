@@ -35,12 +35,12 @@
   "devDependencies": {
     "@pnpm/tsconfig": "^1.0.0",
     "@pnpm/tslint-config": "^1.0.0",
-    "@types/node": "^12.12.21",
-    "@types/tape": "^4.2.33",
-    "rimraf": "^3.0.0",
-    "tape": "^4.12.0",
-    "ts-node": "^8.5.4",
-    "tslint": "^6.0.0",
-    "typescript": "^3.7.3"
+    "@types/node": "^16.11.7",
+    "@types/tape": "^4.13.2",
+    "rimraf": "^3.0.2",
+    "tape": "^5.3.2",
+    "ts-node": "^10.4.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.4.4"
   }
 }
