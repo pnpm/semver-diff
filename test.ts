@@ -130,6 +130,14 @@ const fixtures: Array<[[string, string], { change: SEMVER_CHANGE | null, diff: [
     ['~1.0.0', '1.0.1'],
     { change: 'fix', diff: [[], ['1', '0', '1']] },
   ],
+  [
+    ['5 || 6', '1.0.1'],
+    { change: 'breaking', diff: [[], ['1', '0', '1']] },
+  ],
+  [
+    ['1.0.1', '5 || 6'],
+    { change: 'breaking', diff: [[], ['5 || 6']] },
+  ],
 ]
 
 test('semverDiff', t => {
