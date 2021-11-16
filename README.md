@@ -9,7 +9,7 @@
 ## Installation
 
 ```sh
-<pnpm|yarn|npm> add @pnpm/semver-diff
+pnpm add @pnpm/semver-diff
 ```
 
 ## Usage
@@ -23,4 +23,6 @@ semverDiff('2.0.0', '2.1.0')
 
 ## License
 
-[MIT](./LICENSE) © [Zoltan Kochan](https://www.kochan.io/)
+[MIT](./LICENSE)
+
+Copyright (c) 2019-2021 Zoltan Kochan
