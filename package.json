@@ -1,6 +1,6 @@
 {
   "name": "@pnpm/semver-diff",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Gets the difference between two semver versions",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
