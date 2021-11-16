@@ -12,6 +12,15 @@ export default function semverDiff (
       diff: [parseVersion(version1), []]
     }
   }
+  const [version1Prefix, version1Semver] = parsePrefix(version1)
+  const [version2Prefix, version2Semver] = parsePrefix(version2)
+  if (version1Prefix !== version2Prefix) {
+    const { change } = semverDiff(version1Semver, version2Semver)
+    return {
+      change,
+      diff: [[], parseVersion(version2)]
+    }
+  }
   const version1Tuples = parseVersion(version1)
   const version2Tuples = parseVersion(version2)
   const same = []
@@ -35,6 +44,13 @@ export default function semverDiff (
     change,
     diff: [same, []],
   }
+}
+
+function parsePrefix (version: string) {
+  if (version.startsWith('~') || version.startsWith('^')) {
+    return [version[0], version.substr(1)]
+  }
+  return ['', version]
 }
 
 function parseVersion (version: string) {
