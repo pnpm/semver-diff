@@ -2,9 +2,7 @@
 
 > Gets the difference between two semver versions
 
-<!--@shields('npm', 'travis')-->
-[![npm version](https://img.shields.io/npm/v/@pnpm/semver-diff.svg)](https://www.npmjs.com/package/@pnpm/semver-diff) [![Build Status](https://img.shields.io/travis/pnpm/semver-diff/master.svg)](https://travis-ci.org/pnpm/semver-diff)
-<!--/@-->
+[![npm version](https://img.shields.io/npm/v/@pnpm/semver-diff.svg)](https://www.npmjs.com/package/@pnpm/semver-diff)
 
 ## Installation
 
@@ -15,7 +13,7 @@ pnpm add @pnpm/semver-diff
 ## Usage
 
 ```ts
-import semverDiff from '@pnpm/semver-diff'
+import { semverDiff } from '@pnpm/semver-diff'
 
 semverDiff('2.0.0', '2.1.0')
 //> { change: 'feature', diff: [['2'], ['1', '0']] }
@@ -25,4 +23,4 @@ semverDiff('2.0.0', '2.1.0')
 
 [MIT](./LICENSE)
 
-Copyright (c) 2019-2021 Zoltan Kochan
+Copyright (c) 2019-2026 Zoltan Kochan

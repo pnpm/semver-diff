@@ -2,14 +2,14 @@ export type SEMVER_CHANGE = 'breaking' | 'feature' | 'fix' | 'unknown'
 
 const SEMVER_CHANGE_BY_TUPLE_NUMBER: SEMVER_CHANGE[] = ['breaking', 'feature', 'fix']
 
-export default function semverDiff (
+export function semverDiff (
   version1: string,
-  version2: string,
-): { change: SEMVER_CHANGE | null, diff: [string[], string[]]} {
+  version2: string
+): { change: SEMVER_CHANGE | null, diff: [string[], string[]] } {
   if (version1 === version2) {
     return {
       change: null,
-      diff: [parseVersion(version1), []]
+      diff: [parseVersion(version1), []],
     }
   }
   const [version1Prefix, version1Semver] = parsePrefix(version1)
@@ -18,22 +18,22 @@ export default function semverDiff (
     const { change } = semverDiff(version1Semver, version2Semver)
     return {
       change,
-      diff: [[], parseVersion(version2)]
+      diff: [[], parseVersion(version2)],
     }
   }
   const version1Tuples = parseVersion(version1)
   const version2Tuples = parseVersion(version2)
-  const same = []
+  const same: string[] = []
   let change: SEMVER_CHANGE = 'unknown'
   const maxTuples = Math.max(version1Tuples.length, version2Tuples.length)
-  let unstable = version1Tuples[0] === '0' || version2Tuples[0] === '0' || maxTuples > 3
+  const unstable = version1Tuples[0] === '0' || version2Tuples[0] === '0' || maxTuples > 3
   for (let i = 0; i < maxTuples; i++) {
     if (version1Tuples[i] === version2Tuples[i]) {
       same.push(version1Tuples[i])
       continue
     }
-    if (unstable === false) {
-      change = SEMVER_CHANGE_BY_TUPLE_NUMBER[i] || 'unknown'
+    if (!unstable) {
+      change = SEMVER_CHANGE_BY_TUPLE_NUMBER[i] ?? 'unknown'
     }
     return {
       change,
@@ -46,25 +46,25 @@ export default function semverDiff (
   }
 }
 
-function parsePrefix (version: string) {
+function parsePrefix (version: string): [string, string] {
   if (version.startsWith('~') || version.startsWith('^')) {
-    return [version[0], version.substr(1)]
+    return [version[0], version.slice(1)]
   }
   return ['', version]
 }
 
-function parseVersion (version: string) {
+function parseVersion (version: string): string[] {
   const dashIndex = version.indexOf('-')
-  let normalVersion
-  let prereleaseVersion
+  let normalVersion: string
+  let prereleaseVersion: string | undefined
   if (dashIndex === -1) {
     normalVersion = version
   } else {
-    normalVersion = version.substr(0, dashIndex)
-    prereleaseVersion = version.substr(dashIndex + 1)
+    normalVersion = version.slice(0, dashIndex)
+    prereleaseVersion = version.slice(dashIndex + 1)
   }
   return [
     ...normalVersion.split('.'),
-    ...(typeof prereleaseVersion !== 'undefined' ? prereleaseVersion.split('.') : [])
+    ...(prereleaseVersion !== undefined ? prereleaseVersion.split('.') : []),
   ]
 }
