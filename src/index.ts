@@ -2,7 +2,7 @@ export type SEMVER_CHANGE = 'breaking' | 'feature' | 'fix' | 'unknown'
 
 const SEMVER_CHANGE_BY_TUPLE_NUMBER: SEMVER_CHANGE[] = ['breaking', 'feature', 'fix']
 
-export default function semverDiff (
+export function semverDiff (
   version1: string,
   version2: string
 ): { change: SEMVER_CHANGE | null, diff: [string[], string[]] } {

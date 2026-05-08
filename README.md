@@ -13,7 +13,7 @@ pnpm add @pnpm/semver-diff
 ## Usage
 
 ```ts
-import semverDiff from '@pnpm/semver-diff'
+import { semverDiff } from '@pnpm/semver-diff'
 
 semverDiff('2.0.0', '2.1.0')
 //> { change: 'feature', diff: [['2'], ['1', '0']] }

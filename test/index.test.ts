@@ -1,7 +1,7 @@
 import { deepEqual } from 'node:assert/strict'
 import { test } from 'node:test'
 
-import semverDiff, { type SEMVER_CHANGE } from '../src/index.ts'
+import { semverDiff, type SEMVER_CHANGE } from '../src/index.ts'
 
 const fixtures: Array<[[string, string], { change: SEMVER_CHANGE | null, diff: [string[], string[]] }]> = [
   [
